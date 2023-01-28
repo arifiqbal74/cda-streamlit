@@ -30,7 +30,7 @@ df = pd.read_csv(file)
 
 #find the cumulative wealth of billionaries belonging to US
 
-#df['Networth'].apply(lambda x: float(x.replace('$', '').replace(' B',)))
+df['NetWorth'].apply(lambda x: float(x.replace('$', '').replace(' B','')))
 #cumulative_wealth_usa = df.groupby('Country')['Networth'].sum().
 
 
@@ -52,21 +52,21 @@ col1, col2 = st.columns(2)
 # Display on Streamlit
 selected_country = col1.selectbox('Select Your Country', all_countries)
 # subset on selected country
-subset_Country = df[df['Country'] == Selected_Country]
+subset_country = df[df['Country'] == selected_country]
 
 # get unique sources from the selected country
-sources = sorted(subset_Country['source'].unique())
+sources = sorted(subset_country['Source'].unique())
 
 # display multi select option on source
 selected_source = col1.multiselect('Select Source of Income', sources)
 
 # subset on selected source
-subset_source = subset_country[subset_country['Source'].isin(selected_source)
+subset_source = subset_country[subset_country['Source'].isin(selected_source)]
 
 # column 2
-main_string = '{} - Billionaires'.format(Selected_Country)
+main_string = '{} - Billionaires'.format(selected_country)
 # main_string = selected_country + ' -Billionares
 col2.header(main_string)
-col2.table(subset_Country)
-col2.header('source wise info')
+col2.table(subset_country)
+col2.header('Source wise info')
 col2.table(subset_source)
